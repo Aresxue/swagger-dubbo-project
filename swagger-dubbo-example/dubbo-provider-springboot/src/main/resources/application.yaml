@@ -1,0 +1,6 @@
+server:
+  port: 18080
+dubbo:
+  registry:
+    address: nacos://127.0.0.1:80?namespace=registry
+
