@@ -1,9 +1,5 @@
 package com.come2future.boot.swagger.dubbo.util;
 
-import com.c2f.boot.util.common.primitive.ByteUtil;
-import com.c2f.boot.util.common.primitive.IntegerUtil;
-import com.c2f.boot.util.common.primitive.LongUtil;
-import com.c2f.boot.util.common.primitive.ShortUtil;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -103,35 +99,6 @@ public class MapUtil {
       return null;
     }
     return StringUtil.parseString(map.get(key));
-  }
-
-  public static <K, V> Byte parseByteValue(Map<K, V> map, K key) {
-    if (isEmpty(map)) {
-      return null;
-    }
-    return ByteUtil.parseByte(map.get(key));
-  }
-
-  public static <K, V> Short parseShortValue(Map<K, V> map, K key) {
-    if (isEmpty(map)) {
-      return null;
-    }
-    return ShortUtil.parseShort(map.get(key));
-  }
-
-  public static <K, V> Integer parseIntegerValue(Map<K, V> map, K key) {
-    if (isEmpty(map)) {
-      return null;
-    }
-    return IntegerUtil.parseInteger(map.get(key));
-  }
-
-
-  public static <K, V> Long parseLongValue(Map<K, V> map, K key) {
-    if (isEmpty(map)) {
-      return null;
-    }
-    return LongUtil.parseLong(map.get(key));
   }
 
   public static <K, V> V parseValueOrDefault(Map<K, V> map, K key, V defaultValue) {
