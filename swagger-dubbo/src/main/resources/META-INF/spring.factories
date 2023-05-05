@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.come2future.boot.swagger.dubbo.config.SwaggerDubboConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.ares.api.swagger.dubbo.config.SwaggerDubboConfiguration

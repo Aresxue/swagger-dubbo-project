@@ -3,30 +3,31 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <artifactId>swagger-dubbo-project</artifactId>
-    <groupId>com.come2future.boot</groupId>
-    <version>3.0.0</version>
+    <groupId>cn.ares.api</groupId>
+    <version>4.0.0</version>
   </parent>
+
   <artifactId>swagger-dubbo</artifactId>
-  <packaging>jar</packaging>
   <name>swagger-dubbo</name>
   <version>${swagger-dubbo-project.version}</version>
   <url>http://maven.apache.org</url>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
   <dependencies>
     <dependency>
-      <artifactId>swagger-dubbo-annotations</artifactId>
-      <groupId>com.come2future.boot</groupId>
+      <artifactId>swagger-dubbo-annotation</artifactId>
+      <groupId>cn.ares.api</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>swagger-abstract</artifactId>
+      <groupId>cn.ares.api</groupId>
     </dependency>
 
     <dependency>
-      <groupId>org.apache.dubbo</groupId>
       <artifactId>dubbo</artifactId>
+      <groupId>org.apache.dubbo</groupId>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -37,42 +38,42 @@
     </dependency>
 
     <dependency>
-      <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+      <groupId>org.slf4j</groupId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>io.springfox</groupId>
       <artifactId>springfox-oas</artifactId>
+      <groupId>io.springfox</groupId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
+      <groupId>org.springframework</groupId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-autoconfigure</artifactId>
+      <groupId>org.springframework.boot</groupId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
+      <groupId>javax.servlet</groupId>
       <scope>provided</scope>
     </dependency>
 
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
       <scope>provided</scope>
     </dependency>
 
@@ -85,9 +86,9 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
         <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <encoding>UTF-8</encoding>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -100,7 +101,7 @@
         <artifactId>maven-resources-plugin</artifactId>
         <version>${maven-resources-plugin.version}</version>
         <configuration>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>

@@ -6,14 +6,14 @@
   recommend use v3
 # Version
 | **swagger-dubbo version** | **dubbo version** | support  custom registration dubbo services |
-| --- | --- | --- |
-| 3.0.0 | 2.7.x | yes |
+|---------------------------| --- | --- |
+| 4.0.0                     | 2.7.x | yes |
 
 ## Maven
 ```
 <dependency>
-	  <groupId>com.come2future.boot</groupId>
-	  <artifactId>swagger-dubbo</artifactId>
+      <artifactId>swagger-dubbo</artifactId>
+	  <groupId>cn.ares.api</groupId>
 	  <version>${swagger-dubbo-project.version}</version>
 </dependency>
 ```
@@ -45,7 +45,7 @@ swagger:
      doc: swagger-dubbo
      group: dubbo interface document
      application:
-       groupId: com.come2future.boot
+       groupId: cn.ares.api
        artifactId: swagger-dubbo
        version: 1.0.0
 ```

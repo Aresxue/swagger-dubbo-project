@@ -3,6 +3,7 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -10,7 +11,7 @@
     <relativePath/>
   </parent>
 
-  <groupId>com.come2future.boot</groupId>
+  <groupId>cn.ares.api</groupId>
   <artifactId>swagger-dubbo-example</artifactId>
   <packaging>pom</packaging>
   <name>swagger-dubbo-example</name>
@@ -22,33 +23,33 @@
   </modules>
 
   <properties>
-    <dubbo.version>2.7.8</dubbo.version>
-    <swagger-dubbo.version>3.0.0</swagger-dubbo.version>
+    <dubbo.version>2.7.23</dubbo.version>
+    <swagger-dubbo.version>4.0.0</swagger-dubbo.version>
     <swagger-core.version>1.6.2</swagger-core.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>com.come2future.boot</groupId>
         <artifactId>dubbo-api</artifactId>
+        <groupId>cn.ares.api</groupId>
         <version>${project.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>com.come2future.boot</groupId>
         <artifactId>swagger-dubbo</artifactId>
+        <groupId>cn.ares.api</groupId>
         <version>${swagger-dubbo.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.come2future.boot</groupId>
-        <artifactId>swagger-dubbo-annotations</artifactId>
+        <artifactId>swagger-dubbo-annotation</artifactId>
+        <groupId>cn.ares.api</groupId>
         <version>${swagger-dubbo.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>org.apache.dubbo</groupId>
         <artifactId>dubbo</artifactId>
+        <groupId>org.apache.dubbo</groupId>
         <version>${dubbo.version}</version>
         <scope>provided</scope>
         <exclusions>
@@ -59,14 +60,14 @@
         </exclusions>
       </dependency>
       <dependency>
-        <groupId>org.apache.dubbo</groupId>
         <artifactId>dubbo-registry-nacos</artifactId>
+        <groupId>org.apache.dubbo</groupId>
         <version>${dubbo.version}</version>
       </dependency>
 
       <dependency>
-        <groupId>io.swagger</groupId>
         <artifactId>swagger-annotations</artifactId>
+        <groupId>io.swagger</groupId>
         <version>${swagger-core.version}</version>
       </dependency>
 
