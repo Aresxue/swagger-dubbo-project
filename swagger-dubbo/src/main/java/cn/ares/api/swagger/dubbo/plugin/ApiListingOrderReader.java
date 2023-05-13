@@ -6,6 +6,7 @@ import static org.springframework.core.annotation.AnnotationUtils.findAnnotation
 import static springfox.documentation.service.Tags.emptyTags;
 
 import cn.ares.api.swagger.dubbo.annotation.ApiExpand;
+import cn.ares.boot.util.common.StringUtil;
 import io.swagger.annotations.Api;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,7 +22,6 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import springfox.documentation.service.StringVendorExtension;
 import springfox.documentation.service.Tag;
 import springfox.documentation.service.VendorExtension;
@@ -54,7 +54,7 @@ public class ApiListingOrderReader implements ApiListingBuilderPlugin {
       for (String tagName : tagSet) {
         List<VendorExtension> vendorExtensions = new ArrayList<>();
         vendorExtensions.add(new StringVendorExtension("x-order", Objects.toString(order)));
-        if (!StringUtil.isEmpty(author)) {
+        if (StringUtil.isNotEmpty(author)) {
           vendorExtensions.add(new StringVendorExtension("x-author", author));
         }
         Tag tag = new Tag(tagName, description, vendorExtensions);

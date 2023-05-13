@@ -7,12 +7,13 @@ import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_VERSIO
 import static cn.ares.api.swagger.common.constant.SwaggerConstant.GIT_ADDRESS;
 import static cn.ares.api.swagger.common.constant.SwaggerConstant.MAVEN_DEPENDENCY;
 
+import cn.ares.api.swagger.common.web.readers.operation.CustomOpenApiOperationTagsReader;
 import cn.ares.api.swagger.dubbo.web.read.paramters.DubboParameterDataTypeReader;
 import cn.ares.api.swagger.dubbo.web.read.paramters.DubboParameterTypeReader;
 import cn.ares.api.swagger.dubbo.web.readers.DubboSwaggerApiListingReader;
-import cn.ares.api.swagger.common.web.readers.operation.CustomOpenApiOperationTagsReader;
 import cn.ares.api.swagger.dubbo.web.readers.operation.DubboOperationModelsProvider;
 import cn.ares.api.swagger.dubbo.web.readers.operation.DubboOperationParameterReader;
+import cn.ares.boot.util.common.StringUtil;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +25,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.plugin.core.PluginRegistry;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.common.Compatibility;
 import springfox.documentation.service.ApiDescription;
@@ -114,9 +114,9 @@ public class DubboDocumentationPluginsManager {
     List<DocumentationPlugin> plugins = new ArrayList<>();
 
     String description = "";
-    version = !StringUtil.isEmpty(version) ? version : applicationConfig.getVersion();
-    if (!StringUtil.isEmpty(groupId) && !StringUtil.isEmpty(artifactId) && !StringUtils
-        .isEmpty(version)) {
+    version = StringUtil.isNotEmpty(version) ? version : applicationConfig.getVersion();
+    if (StringUtil.isNotEmpty(groupId) && StringUtil.isNotEmpty(artifactId)
+        && StringUtil.isNotEmpty(version)) {
       description = MessageFormat.format(MAVEN_DEPENDENCY, groupId, artifactId, version);
     }
     if (null == version) {

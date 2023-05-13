@@ -81,7 +81,7 @@ public class DubboHttpController {
           parameterMap.forEach((key, value) -> {
             int openIndex = key.indexOf("[");
             int closeIndex = key.indexOf("].");
-            if (!StringUtil.isEmpty(value[0])) {
+            if (StringUtil.isNotEmpty(value[0])) {
               if (openIndex != -1 && closeIndex != -1) {
                 String subKey = key.substring(0, openIndex);
                 int index = Integer.parseInt(key.substring(openIndex + 1, closeIndex));
@@ -119,14 +119,14 @@ public class DubboHttpController {
             String paramName = "param" + i;
             io.swagger.v3.oas.annotations.Parameter swaggerParameter = parameter
                 .getAnnotation(io.swagger.v3.oas.annotations.Parameter.class);
-            if (null != swaggerParameter && !StringUtil.isEmpty(swaggerParameter.name())) {
+            if (null != swaggerParameter && StringUtil.isNotEmpty(swaggerParameter.name())) {
               paramName = swaggerParameter.name();
             } else {
               Parameter[] implParameters = bean.getClass()
                   .getDeclaredMethod(method.getName(), method.getParameterTypes()).getParameters();
               swaggerParameter = implParameters[i]
                   .getAnnotation(io.swagger.v3.oas.annotations.Parameter.class);
-              if (null != swaggerParameter && !StringUtil.isEmpty(swaggerParameter.name())) {
+              if (null != swaggerParameter && StringUtil.isNotEmpty(swaggerParameter.name())) {
                 paramName = swaggerParameter.name();
               }
             }

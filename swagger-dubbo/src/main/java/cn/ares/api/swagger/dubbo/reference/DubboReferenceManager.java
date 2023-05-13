@@ -30,7 +30,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 @Component
 public class DubboReferenceManager implements ApplicationContextAware {
@@ -50,7 +49,7 @@ public class DubboReferenceManager implements ApplicationContextAware {
 
   public DubboBeanMethod getDubboBeanMethod(String interfaceClass,
       String methodName, String operationId) {
-    if (!StringUtil.isEmpty(operationId)) {
+    if (StringUtil.isNotEmpty(operationId)) {
       operationId = SLASH + operationId;
     }
     String key = String.format(UNIQUE_KEY, interfaceClass, methodName, operationId);
@@ -113,14 +112,14 @@ public class DubboReferenceManager implements ApplicationContextAware {
 
               String operationId = "";
               Operation operation = method.getAnnotation(Operation.class);
-              if (null != operation && !StringUtil.isEmpty(operation.operationId())) {
+              if (null != operation && StringUtil.isNotEmpty(operation.operationId())) {
                 operationId = SLASH + operation.operationId();
               } else {
                 try {
                   Method implMethod = impl.getClass()
                       .getDeclaredMethod(method.getName(), method.getParameterTypes());
                   operation = implMethod.getAnnotation(Operation.class);
-                  if (null != operation && !StringUtil.isEmpty(operation.operationId())) {
+                  if (null != operation && StringUtil.isNotEmpty(operation.operationId())) {
                     operationId = SLASH + operation.operationId();
                   }
                 } catch (NoSuchMethodException ignored) {
