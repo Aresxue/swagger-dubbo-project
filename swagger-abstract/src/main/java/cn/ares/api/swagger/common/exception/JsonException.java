@@ -1,4 +1,4 @@
-package cn.ares.api.swagger.dubbo.exception;
+package cn.ares.api.swagger.common.exception;
 
 /**
  * @author: Ares

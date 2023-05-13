@@ -1,7 +1,8 @@
-package cn.ares.api.swagger.dubbo.web.readers.operation;
+package cn.ares.api.swagger.common.web.readers.operation;
 
 import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.beans.factory.config.BeanDefinition.ROLE_INFRASTRUCTURE;
 import static springfox.documentation.service.Tags.emptyTags;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Function;
 import java.util.stream.Stream;
+import org.springframework.context.annotation.Role;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import springfox.documentation.spi.DocumentationType;
@@ -22,20 +24,21 @@ import springfox.documentation.swagger.common.SwaggerPluginSupport;
 
 /**
  * @author: Ares
- * @time: 2021/7/6 18:55 copy from
+ * @time: 2021-07-06 18:55:00
  * @description: copy from springfox.documentation.swagger.readers.operation.OpenApiOperationTagsReader
  * @version: JDK 1.8
  * @see springfox.documentation.swagger.readers.operation.OpenApiOperationTagsReader
  */
 @Component
 @Order(SwaggerPluginSupport.OAS_PLUGIN_ORDER)
-public class DubboOpenApiOperationTagsReader {
+@Role(value = ROLE_INFRASTRUCTURE)
+public class CustomOpenApiOperationTagsReader {
 
   public void apply(OperationContext context) {
     context.operationBuilder()
         .tags(Stream.concat(
-            operationTags(context).stream(),
-            controllerTags(context).stream())
+                operationTags(context).stream(),
+                controllerTags(context).stream())
             .collect(toSet()));
   }
 

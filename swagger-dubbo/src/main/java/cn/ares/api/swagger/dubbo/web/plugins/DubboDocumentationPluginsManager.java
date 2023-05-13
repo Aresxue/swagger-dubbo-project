@@ -1,16 +1,16 @@
 package cn.ares.api.swagger.dubbo.web.plugins;
 
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.ARES_ADDRESS;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.DEFAULT_CONTACT_NAME;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.DEFAULT_EMAIL;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.DEFAULT_VERSION;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.GIT_ADDRESS;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.MAVEN_DEPENDENCY;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.ARES_ADDRESS;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_CONTACT_NAME;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_EMAIL;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_VERSION;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.GIT_ADDRESS;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.MAVEN_DEPENDENCY;
 
 import cn.ares.api.swagger.dubbo.web.read.paramters.DubboParameterDataTypeReader;
 import cn.ares.api.swagger.dubbo.web.read.paramters.DubboParameterTypeReader;
 import cn.ares.api.swagger.dubbo.web.readers.DubboSwaggerApiListingReader;
-import cn.ares.api.swagger.dubbo.web.readers.operation.DubboOpenApiOperationTagsReader;
+import cn.ares.api.swagger.common.web.readers.operation.CustomOpenApiOperationTagsReader;
 import cn.ares.api.swagger.dubbo.web.readers.operation.DubboOperationModelsProvider;
 import cn.ares.api.swagger.dubbo.web.readers.operation.DubboOperationParameterReader;
 import java.text.MessageFormat;
@@ -108,14 +108,14 @@ public class DubboDocumentationPluginsManager {
   @Autowired
   private DubboSwaggerApiListingReader dubboSwaggerApiListingReader;
   @Autowired
-  private DubboOpenApiOperationTagsReader dubboOpenApiOperationTagsReader;
+  private CustomOpenApiOperationTagsReader dubboOpenApiOperationTagsReader;
 
   public Collection<DocumentationPlugin> documentationPlugins() throws IllegalStateException {
     List<DocumentationPlugin> plugins = new ArrayList<>();
 
     String description = "";
-    version = !StringUtils.isEmpty(version) ? version : applicationConfig.getVersion();
-    if (!StringUtils.isEmpty(groupId) && !StringUtils.isEmpty(artifactId) && !StringUtils
+    version = !StringUtil.isEmpty(version) ? version : applicationConfig.getVersion();
+    if (!StringUtil.isEmpty(groupId) && !StringUtil.isEmpty(artifactId) && !StringUtils
         .isEmpty(version)) {
       description = MessageFormat.format(MAVEN_DEPENDENCY, groupId, artifactId, version);
     }
@@ -123,7 +123,7 @@ public class DubboDocumentationPluginsManager {
       version = DEFAULT_VERSION;
     }
     String contactName = applicationConfig.getOwner();
-    if (StringUtils.isEmpty(contactName)) {
+    if (StringUtil.isEmpty(contactName)) {
       contactName = DEFAULT_CONTACT_NAME;
     }
 

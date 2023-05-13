@@ -1,24 +1,21 @@
 package cn.ares.api.swagger.dubbo.entity;
 
-import java.lang.invoke.MethodHandle;
-import java.lang.reflect.Method;
+import cn.ares.api.swagger.common.entity.InvokeMethod;
 import org.apache.dubbo.rpc.service.GenericService;
 
 /**
  * @author: Ares
  * @time: 2021-06-28 21:06:00
- * @description: dubbo bean method
+ * @description: Dubbo bean method
  * @version: JDK 1.8
  */
-public class DubboBeanMethod {
+public class DubboBeanMethod extends InvokeMethod {
 
   private Class<?> interfaceClass;
   /**
    * priority use，performance better than method
    */
-  private MethodHandle methodHandle;
-  private Method method;
-  private Object bean;
+
   private GenericService genericService;
 
   public Class<?> getInterfaceClass() {
@@ -27,30 +24,6 @@ public class DubboBeanMethod {
 
   public void setInterfaceClass(Class<?> interfaceClass) {
     this.interfaceClass = interfaceClass;
-  }
-
-  public MethodHandle getMethodHandle() {
-    return methodHandle;
-  }
-
-  public void setMethodHandle(MethodHandle methodHandle) {
-    this.methodHandle = methodHandle;
-  }
-
-  public Method getMethod() {
-    return method;
-  }
-
-  public void setMethod(Method method) {
-    this.method = method;
-  }
-
-  public Object getBean() {
-    return bean;
-  }
-
-  public void setBean(Object bean) {
-    this.bean = bean;
   }
 
   public GenericService getGenericService() {
@@ -65,10 +38,11 @@ public class DubboBeanMethod {
   public String toString() {
     return "DubboBeanMethod{" +
         "interfaceClass=" + interfaceClass +
-        ", methodHandle=" + methodHandle +
-        ", method=" + method +
-        ", bean=" + bean +
+        ", methodHandle=" + super.getMethodHandle() +
+        ", method=" + super.getMethod() +
+        ", bean=" + super.getTarget() +
         ", genericService=" + genericService +
         '}';
   }
+
 }

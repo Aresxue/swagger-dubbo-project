@@ -1,4 +1,4 @@
-package cn.ares.api.swagger.dubbo.constant;
+package cn.ares.api.swagger.common.constant;
 
 /**
  * @author: Ares
@@ -20,11 +20,11 @@ public interface SwaggerConstant {
   String DEFAULT_CONTACT_NAME = "Ares";
   String DEFAULT_VERSION = "1.0.0";
   String ARES_ADDRESS = "https://github.com/Aresxue";
-  String GIT_ADDRESS = "https://github.com/Aresxue/swagger-dubbo.git";
+  String GIT_ADDRESS = "https://github.com/Aresxue/swagger-dubbo-project.git";
   String DEFAULT_EMAIL = "ares320635@gmail.com";
 
   String UNIQUE_KEY = "/%s/%s%s";
 
-  String SLASH = "/";
-  String POUND = "#";
+  String SWAGGER_DUBBO_ENABLE = "ares.swagger.rpc.enable";
+
 }

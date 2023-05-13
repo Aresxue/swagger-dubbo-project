@@ -4,9 +4,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.oss</groupId>
-    <artifactId>oss-parent</artifactId>
-    <version>7</version>
+    <groupId>io.github.aresxue.boot</groupId>
+    <artifactId>ares-boot-starter-parent</artifactId>
+    <version>1.0.0</version>
+    <relativePath/>
   </parent>
 
   <artifactId>swagger-dubbo-project</artifactId>
@@ -15,21 +16,6 @@
   <packaging>pom</packaging>
   <name>swagger-dubbo-project</name>
   <description>dubbo supports swagger document</description>
-  <url>http://maven.apache.org</url>
-
-  <licenses>
-    <license>
-      <name>The Apache Software License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-    </license>
-  </licenses>
-
-  <developers>
-    <developer>
-      <name>ares</name>
-      <email>ares@come2future.com</email>
-    </developer>
-  </developers>
 
   <modules>
     <module>swagger-dubbo</module>
@@ -38,38 +24,17 @@
   </modules>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>1.8</java.version>
+    <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
 
     <swagger-dubbo-project.version>4.0.0</swagger-dubbo-project.version>
-
     <swagger-core.version>1.6.2</swagger-core.version>
     <dubbo.version>2.7.23</dubbo.version>
-    <spring-boot.version>2.3.5.RELEASE</spring-boot.version>
-    <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
-    <jackson-databind.version>2.14.0</jackson-databind.version>
-    <jackson.version>2.11.3</jackson.version>
-    <slf4j-api.version>1.7.30</slf4j-api.version>
     <springfox-oas.version>3.0.0</springfox-oas.version>
     <swagger-annotations.version>2.1.2</swagger-annotations.version>
-
-    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
-    <maven-source-plugin.version>3.2.0</maven-source-plugin.version>
-    <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-    <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <scope>import</scope>
-        <type>pom</type>
-        <version>${spring-boot.version}</version>
-      </dependency>
-
       <dependency>
         <groupId>cn.ares.api</groupId>
         <artifactId>swagger-dubbo</artifactId>
@@ -111,110 +76,11 @@
       </dependency>
 
       <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${slf4j-api.version}</version>
-      </dependency>
-
-      <dependency>
         <groupId>io.springfox</groupId>
         <artifactId>springfox-oas</artifactId>
         <version>${springfox-oas.version}</version>
       </dependency>
-
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>javax.servlet-api</artifactId>
-        <version>${javax.servlet-api.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson-databind.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.datatype</groupId>
-        <artifactId>jackson-datatype-jsr310</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <distributionManagement>
-    <snapshotRepository>
-      <id>oss</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-    </snapshotRepository>
-    <repository>
-      <id>oss</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-    </repository>
-  </distributionManagement>
-
-
-  <profiles>
-    <profile>
-      <id>release</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <source>${java.version}</source>
-              <target>${java.version}</target>
-              <encoding>${project.build.sourceEncoding}</encoding>
-            </configuration>
-            <version>${maven-compiler-plugin.version}</version>
-          </plugin>
-          <!-- Source -->
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <version>${maven-resources-plugin.version}</version>
-            <executions>
-              <execution>
-                <phase>package</phase>
-                <goals>
-                  <goal>jar-no-fork</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-      <distributionManagement>
-        <snapshotRepository>
-          <id>oss</id>
-          <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-          <id>oss</id>
-          <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-      </distributionManagement>
-    </profile>
-  </profiles>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-        <version>${maven-compiler-plugin.version}</version>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>

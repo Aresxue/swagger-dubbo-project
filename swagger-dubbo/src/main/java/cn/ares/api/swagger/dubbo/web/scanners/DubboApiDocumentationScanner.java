@@ -7,8 +7,8 @@ import static springfox.documentation.service.Tags.toTags;
 import static springfox.documentation.spi.service.contexts.Orderings.listingReferencePathComparator;
 
 import cn.ares.api.swagger.dubbo.reference.DubboReferenceManager;
-import cn.ares.api.swagger.dubbo.util.AopUtil;
-import cn.ares.api.swagger.dubbo.web.DubboWebMvcRequestHandler;
+import cn.ares.api.swagger.dubbo.web.CustomWebMvcRequestHandler;
+import cn.ares.boot.util.spring.AopUtil;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -107,7 +107,7 @@ public class DubboApiDocumentationScanner {
 
     dubboReferenceManager.getDubboBeanMethod().forEach((key, dubboBeanMethod) -> {
       Class<?> interfaceClass = dubboBeanMethod.getInterfaceClass();
-      Object bean = dubboBeanMethod.getBean();
+      Object bean = dubboBeanMethod.getTarget();
       Method method = dubboBeanMethod.getMethod();
 
       try {
@@ -140,7 +140,7 @@ public class DubboApiDocumentationScanner {
         RequestMappingInfo requestMappingInfo = builder.options(config).build();
 
         HandlerMethod handlerMethod = new HandlerMethod(originBean, method);
-        RequestHandler requestHandler = new DubboWebMvcRequestHandler(
+        RequestHandler requestHandler = new CustomWebMvcRequestHandler(
             servletContextPath + contextPath,
             handlerMethodResolver, requestMappingInfo, handlerMethod);
         RequestMappingContext requestMappingContext = new RequestMappingContext(

@@ -1,6 +1,6 @@
 package cn.ares.api.swagger.dubbo.web;
 
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.DEFAULT_URL;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_URL;
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 import io.swagger.v3.oas.annotations.Hidden;

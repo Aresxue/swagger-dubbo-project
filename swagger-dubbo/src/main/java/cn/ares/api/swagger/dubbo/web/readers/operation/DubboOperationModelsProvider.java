@@ -2,7 +2,7 @@ package cn.ares.api.swagger.dubbo.web.readers.operation;
 
 import static springfox.documentation.schema.ResolvedTypes.resolvedTypeSignature;
 
-import cn.ares.api.swagger.dubbo.util.ClassUtil;
+import cn.ares.boot.util.common.ClassUtil;
 import com.fasterxml.classmate.ResolvedType;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +25,8 @@ import springfox.documentation.spring.web.readers.operation.OperationModelsProvi
 /**
  * @author: Ares
  * @time: 2021/7/2 15:16
- * @description: copy from springfox.documentation.spring.web.readers.operation.OperationModelsProvider
+ * @description: copy from
+ * springfox.documentation.spring.web.readers.operation.OperationModelsProvider
  * @version: JDK 1.8
  * @see springfox.documentation.spring.web.readers.operation.OperationModelsProvider
  */
@@ -81,8 +82,8 @@ public class DubboOperationModelsProvider {
     for (ResolvedMethodParameter parameterType : parameterTypes) {
       Class<?> clazz = parameterType.getParameterType().getErasedType();
       if (parameterType.hasParameterAnnotation(RequestBody.class)
-          || parameterType.hasParameterAnnotation(RequestPart.class) || !ClassUtil
-          .isBaseOrWrapOrString(clazz)) {
+          || parameterType.hasParameterAnnotation(RequestPart.class)
+          || !ClassUtil.isBaseOrWrapOrString(clazz)) {
         ResolvedType modelType = context.alternateFor(parameterType.getParameterType());
         LOG.debug(
             "Adding input parameter of type {}",

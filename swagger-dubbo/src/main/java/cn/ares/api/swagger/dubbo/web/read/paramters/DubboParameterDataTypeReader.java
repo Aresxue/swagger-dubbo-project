@@ -6,7 +6,7 @@ import static springfox.documentation.schema.Maps.isMapType;
 import static springfox.documentation.schema.ResolvedTypes.modelRefFactory;
 import static springfox.documentation.schema.ScalarTypes.builtInScalarType;
 
-import cn.ares.api.swagger.dubbo.util.ClassUtil;
+import cn.ares.boot.util.common.ClassUtil;
 import com.fasterxml.classmate.ResolvedType;
 import java.util.HashSet;
 import java.util.Optional;
@@ -37,7 +37,8 @@ import springfox.documentation.spi.service.contexts.ParameterContext;
 /**
  * @author: Ares
  * @time: 2021/7/2 14:32
- * @description: copy from springfox.documentation.spring.web.readers.parameter.ParameterDataTypeReader
+ * @description: copy from
+ * springfox.documentation.spring.web.readers.parameter.ParameterDataTypeReader
  * @version: JDK 1.8
  * @see springfox.documentation.spring.web.readers.parameter.ParameterDataTypeReader
  */

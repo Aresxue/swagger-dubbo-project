@@ -1,4 +1,4 @@
-package cn.ares.api.swagger.dubbo.constant;
+package cn.ares.api.swagger.common.constant;
 
 /**
  * @author: Ares

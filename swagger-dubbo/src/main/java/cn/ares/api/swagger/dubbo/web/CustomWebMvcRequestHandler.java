@@ -1,6 +1,7 @@
 package cn.ares.api.swagger.dubbo.web;
 
-import cn.ares.api.swagger.dubbo.util.AopUtil;
+import cn.ares.boot.util.common.ArrayUtil;
+import cn.ares.boot.util.spring.AopUtil;
 import com.fasterxml.classmate.ResolvedType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.StringJoiner;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.MediaType;
@@ -34,14 +36,14 @@ import springfox.documentation.spring.wrapper.PatternsRequestCondition;
  * @version: JDK 1.8
  * @see springfox.documentation.spring.web.WebMvcRequestHandler
  */
-public class DubboWebMvcRequestHandler implements RequestHandler {
+public class CustomWebMvcRequestHandler implements RequestHandler {
 
   private final String contextPath;
   private final HandlerMethodResolver methodResolver;
   private final RequestMappingInfo requestMapping;
   private final HandlerMethod handlerMethod;
 
-  public DubboWebMvcRequestHandler(String contextPath, HandlerMethodResolver methodResolver,
+  public CustomWebMvcRequestHandler(String contextPath, HandlerMethodResolver methodResolver,
       RequestMappingInfo requestMapping, HandlerMethod handlerMethod) {
     this.contextPath = contextPath;
     this.methodResolver = methodResolver;
@@ -51,7 +53,7 @@ public class DubboWebMvcRequestHandler implements RequestHandler {
 
   @Override
   public HandlerMethod getHandlerMethod() {
-    return this.handlerMethod;
+    return handlerMethod;
   }
 
   @Override
@@ -61,25 +63,29 @@ public class DubboWebMvcRequestHandler implements RequestHandler {
 
   @Override
   public Class<?> declaringClass() {
-    return this.handlerMethod.getBeanType();
+    return handlerMethod.getBeanType();
   }
 
   @Override
   public boolean isAnnotatedWith(Class<? extends Annotation> annotation) {
-    return null != AnnotationUtils.findAnnotation(this.handlerMethod.getMethod(), annotation);
+    return null != AnnotationUtils.findAnnotation(handlerMethod.getMethod(), annotation);
   }
 
   @Override
   public PatternsRequestCondition<?> getPatternsCondition() {
-    return new WebMvcPatternsRequestConditionWrapper(this.contextPath,
-        this.requestMapping.getPatternsCondition());
+    return new WebMvcPatternsRequestConditionWrapper(contextPath,
+        requestMapping.getPatternsCondition());
   }
 
   @Override
   public String groupName() {
-    Class<?> dubboServiceImpl = handlerMethod.getBeanType();
-    Class<?> interfaceClazz = dubboServiceImpl.getInterfaces()[0];
-    return interfaceClazz.getSimpleName();
+    Class<?> beanType = handlerMethod.getBeanType();
+    if (ArrayUtil.isNotEmpty(beanType.getInterfaces())) {
+      Class<?> interfaceClazz = beanType.getInterfaces()[0];
+      return interfaceClazz.getSimpleName();
+    } else {
+      return beanType.getSimpleName();
+    }
   }
 
   @Override
@@ -156,7 +162,8 @@ public class DubboWebMvcRequestHandler implements RequestHandler {
       HandlerMethod implHandlerMethod = new HandlerMethod(bean, implMethod);
       Map<Integer, ResolvedMethodParameter> resolvedMethodParameterMap = methodResolver
           .methodParameters(implHandlerMethod).stream()
-          .collect(Collectors.toMap(ResolvedMethodParameter::getParameterIndex, i -> i));
+          .collect(
+              Collectors.toMap(ResolvedMethodParameter::getParameterIndex, Function.identity()));
       for (ResolvedMethodParameter resolvedMethodParameter : resolvedMethodParameterList) {
         ResolvedMethodParameter resolvedMethodParameterImpl = resolvedMethodParameterMap
             .get(resolvedMethodParameter.getParameterIndex());
@@ -177,14 +184,14 @@ public class DubboWebMvcRequestHandler implements RequestHandler {
 
   @Override
   public ResolvedType getReturnType() {
-    return this.methodResolver.methodReturnType(handlerMethod);
+    return this.methodResolver.methodReturnType(this.handlerMethod);
   }
 
   @Override
   public <T extends Annotation> Optional<T> findControllerAnnotation(Class<T> annotation) {
     Class<?> clazz = handlerMethod.getBeanType();
     Annotation result = AnnotationUtils.findAnnotation(clazz, annotation);
-    if (null == result) {
+    if (null == result && ArrayUtil.isNotEmpty(clazz.getInterfaces())) {
       clazz = clazz.getInterfaces()[0];
       result = AnnotationUtils.findAnnotation(clazz, annotation);
     }
@@ -193,9 +200,8 @@ public class DubboWebMvcRequestHandler implements RequestHandler {
 
   @Override
   public String toString() {
-    return (new StringJoiner(", ", DubboWebMvcRequestHandler.class.getSimpleName() + "{", "}"))
-        .add("requestMapping=" + this.requestMapping).add("handlerMethod=" + this.handlerMethod)
+    return (new StringJoiner(", ", CustomWebMvcRequestHandler.class.getSimpleName() + "{", "}"))
+        .add("requestMapping=" + requestMapping).add("handlerMethod=" + handlerMethod)
         .add("key=" + this.key()).toString();
   }
-
 }

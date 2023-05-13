@@ -8,7 +8,8 @@ import static springfox.documentation.swagger.common.SwaggerPluginSupport.plugin
 
 import cn.ares.api.swagger.dubbo.entity.DubboBeanMethod;
 import cn.ares.api.swagger.dubbo.reference.DubboReferenceManager;
-import cn.ares.api.swagger.dubbo.util.AopUtil;
+import cn.ares.boot.util.common.StringUtil;
+import cn.ares.boot.util.spring.AopUtil;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import java.util.Arrays;
@@ -22,7 +23,6 @@ import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 import springfox.documentation.builders.BuilderDefaults;
 import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
@@ -60,11 +60,11 @@ public class DubboSwaggerApiListingReader {
           .getDubboBeanMethodList(interfaceClazz.get().getCanonicalName());
 
       if (!CollectionUtils.isEmpty(dubboBeanMethodList)) {
-        Object bean = dubboBeanMethodList.get(0).getBean();
+        Object bean = dubboBeanMethodList.get(0).getTarget();
         try {
           Class<?> implClazz = AopUtil.getTarget(bean).getClass();
           apiAnnotation = ofNullable(findAnnotation(implClazz, Api.class));
-          if (StringUtils.isEmpty(description)) {
+          if (StringUtil.isEmpty(description)) {
             description = apiAnnotation.map(Api::description)
                 .map(BuilderDefaults::emptyToNull)
                 .orElse(null);

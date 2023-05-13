@@ -2,9 +2,10 @@ package cn.ares.api.swagger.dubbo.web;
 
 import cn.ares.api.swagger.dubbo.entity.DubboBeanMethod;
 import cn.ares.api.swagger.dubbo.reference.DubboReferenceManager;
-import cn.ares.api.swagger.dubbo.util.ClassUtil;
 import cn.ares.api.swagger.dubbo.util.IoUtil;
-import cn.ares.api.swagger.dubbo.util.JsonUtil;
+import cn.ares.boot.util.common.ClassUtil;
+import cn.ares.boot.util.common.StringUtil;
+import cn.ares.boot.util.json.JsonUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import java.io.ByteArrayOutputStream;
 import java.lang.invoke.MethodHandle;
@@ -25,7 +26,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,7 +69,7 @@ public class DubboHttpController {
 
     Method method = dubboBeanMethod.getMethod();
     MethodHandle methodHandle = dubboBeanMethod.getMethodHandle();
-    Object bean = dubboBeanMethod.getBean();
+    Object bean = dubboBeanMethod.getTarget();
 
     Object result;
     try {
@@ -81,7 +81,7 @@ public class DubboHttpController {
           parameterMap.forEach((key, value) -> {
             int openIndex = key.indexOf("[");
             int closeIndex = key.indexOf("].");
-            if (!StringUtils.isEmpty(value[0])) {
+            if (!StringUtil.isEmpty(value[0])) {
               if (openIndex != -1 && closeIndex != -1) {
                 String subKey = key.substring(0, openIndex);
                 int index = Integer.parseInt(key.substring(openIndex + 1, closeIndex));
@@ -119,14 +119,14 @@ public class DubboHttpController {
             String paramName = "param" + i;
             io.swagger.v3.oas.annotations.Parameter swaggerParameter = parameter
                 .getAnnotation(io.swagger.v3.oas.annotations.Parameter.class);
-            if (null != swaggerParameter && !StringUtils.isEmpty(swaggerParameter.name())) {
+            if (null != swaggerParameter && !StringUtil.isEmpty(swaggerParameter.name())) {
               paramName = swaggerParameter.name();
             } else {
               Parameter[] implParameters = bean.getClass()
                   .getDeclaredMethod(method.getName(), method.getParameterTypes()).getParameters();
               swaggerParameter = implParameters[i]
                   .getAnnotation(io.swagger.v3.oas.annotations.Parameter.class);
-              if (null != swaggerParameter && !StringUtils.isEmpty(swaggerParameter.name())) {
+              if (null != swaggerParameter && !StringUtil.isEmpty(swaggerParameter.name())) {
                 paramName = swaggerParameter.name();
               }
             }
@@ -137,7 +137,7 @@ public class DubboHttpController {
             } else {
               params[i] = JsonUtil.parseObject(paramValue.toString(), clazz);
             }
-          } else if (!StringUtils.isEmpty(body)) {
+          } else if (StringUtil.isNotEmpty(body)) {
             params[i] = JsonUtil.parseObject(body, clazz);
           }
         }

@@ -13,5 +13,11 @@
   <artifactId>swagger-abstract</artifactId>
   <version>${swagger-dubbo-project.version}</version>
 
+  <dependencies>
+    <dependency>
+      <artifactId>springfox-oas</artifactId>
+      <groupId>io.springfox</groupId>
+    </dependency>
+  </dependencies>
 
 </project>

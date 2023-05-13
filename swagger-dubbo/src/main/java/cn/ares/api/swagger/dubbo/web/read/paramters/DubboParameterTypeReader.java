@@ -3,7 +3,7 @@ package cn.ares.api.swagger.dubbo.web.read.paramters;
 import static springfox.documentation.schema.Collections.collectionElementType;
 import static springfox.documentation.schema.Collections.isContainerType;
 
-import cn.ares.api.swagger.dubbo.util.ClassUtil;
+import cn.ares.boot.util.common.ClassUtil;
 import com.fasterxml.classmate.ResolvedType;
 import java.util.Collection;
 import java.util.Collections;
@@ -92,7 +92,8 @@ public class DubboParameterTypeReader {
     if (ClassUtil.isBaseOrWrapOrString(clazz)) {
       return "query";
     } else {
-      parameterContext.requestParameterBuilder().description(StringUtils.uncapitalize(clazz.getSimpleName()));
+      parameterContext.requestParameterBuilder()
+          .description(StringUtils.uncapitalize(clazz.getSimpleName()));
       return "body";
     }
   }

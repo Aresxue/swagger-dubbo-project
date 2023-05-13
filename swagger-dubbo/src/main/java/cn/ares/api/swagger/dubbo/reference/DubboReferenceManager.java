@@ -1,14 +1,14 @@
 package cn.ares.api.swagger.dubbo.reference;
 
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.SLASH;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.UNIQUE_KEY;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.UNIQUE_KEY;
+import static cn.ares.api.swagger.common.constant.SymbolConstant.SLASH;
 import static org.apache.dubbo.common.constants.CommonConstants.GENERIC_SERIALIZATION_DEFAULT;
 import static org.apache.dubbo.rpc.Constants.SCOPE_LOCAL;
 
 import cn.ares.api.swagger.dubbo.entity.DubboBeanMethod;
-import cn.ares.api.swagger.dubbo.util.CollectionUtil;
-import cn.ares.api.swagger.dubbo.util.SpringUtil;
-import cn.ares.api.swagger.dubbo.util.StringUtil;
+import cn.ares.boot.util.common.CollectionUtil;
+import cn.ares.boot.util.common.StringUtil;
+import cn.ares.boot.util.spring.SpringUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -50,7 +50,7 @@ public class DubboReferenceManager implements ApplicationContextAware {
 
   public DubboBeanMethod getDubboBeanMethod(String interfaceClass,
       String methodName, String operationId) {
-    if (!StringUtils.isEmpty(operationId)) {
+    if (!StringUtil.isEmpty(operationId)) {
       operationId = SLASH + operationId;
     }
     String key = String.format(UNIQUE_KEY, interfaceClass, methodName, operationId);
@@ -113,14 +113,14 @@ public class DubboReferenceManager implements ApplicationContextAware {
 
               String operationId = "";
               Operation operation = method.getAnnotation(Operation.class);
-              if (null != operation && !StringUtils.isEmpty(operation.operationId())) {
+              if (null != operation && !StringUtil.isEmpty(operation.operationId())) {
                 operationId = SLASH + operation.operationId();
               } else {
                 try {
                   Method implMethod = impl.getClass()
                       .getDeclaredMethod(method.getName(), method.getParameterTypes());
                   operation = implMethod.getAnnotation(Operation.class);
-                  if (null != operation && !StringUtils.isEmpty(operation.operationId())) {
+                  if (null != operation && !StringUtil.isEmpty(operation.operationId())) {
                     operationId = SLASH + operation.operationId();
                   }
                 } catch (NoSuchMethodException ignored) {
@@ -133,7 +133,7 @@ public class DubboReferenceManager implements ApplicationContextAware {
               dubboBeanMethod.setInterfaceClass(clazz);
               method.setAccessible(true);
               dubboBeanMethod.setMethod(method);
-              dubboBeanMethod.setBean(impl);
+              dubboBeanMethod.setTarget(impl);
 
               dubboBeanMethod.setGenericService(genericService);
 

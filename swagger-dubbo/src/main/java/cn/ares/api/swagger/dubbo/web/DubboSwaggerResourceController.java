@@ -1,9 +1,9 @@
 package cn.ares.api.swagger.dubbo.web;
 
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.DEFAULT_URL;
-import static cn.ares.api.swagger.dubbo.constant.SwaggerConstant.SWAGGER_VERSION;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.DEFAULT_URL;
+import static cn.ares.api.swagger.common.constant.SwaggerConstant.SWAGGER_VERSION;
 
-import cn.ares.api.swagger.dubbo.constant.SwaggerConstant;
+import cn.ares.api.swagger.common.constant.SwaggerConstant;
 import io.swagger.v3.oas.annotations.Hidden;
 import java.util.ArrayList;
 import java.util.Collections;

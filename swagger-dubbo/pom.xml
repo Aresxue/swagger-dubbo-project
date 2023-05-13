@@ -26,6 +26,15 @@
     </dependency>
 
     <dependency>
+      <groupId>io.github.aresxue.boot.util</groupId>
+      <artifactId>ares-boot-util-json</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.github.aresxue.boot.util</groupId>
+      <artifactId>ares-boot-util-spring</artifactId>
+    </dependency>
+
+    <dependency>
       <artifactId>dubbo</artifactId>
       <groupId>org.apache.dubbo</groupId>
       <scope>provided</scope>
@@ -41,11 +50,6 @@
       <artifactId>slf4j-api</artifactId>
       <groupId>org.slf4j</groupId>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <artifactId>springfox-oas</artifactId>
-      <groupId>io.springfox</groupId>
     </dependency>
 
     <dependency>
@@ -81,45 +85,6 @@
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>${maven-jar-plugin.version}</version>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-resources-plugin</artifactId>
-        <version>${maven-resources-plugin.version}</version>
-        <configuration>
-          <encoding>${project.build.sourceEncoding}</encoding>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-source-plugin</artifactId>
-        <version>${maven-source-plugin.version}</version>
-        <configuration>
-          <attach>true</attach>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-deploy-plugin</artifactId>

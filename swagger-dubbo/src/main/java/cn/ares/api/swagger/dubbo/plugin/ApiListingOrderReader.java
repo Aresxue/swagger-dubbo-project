@@ -54,7 +54,7 @@ public class ApiListingOrderReader implements ApiListingBuilderPlugin {
       for (String tagName : tagSet) {
         List<VendorExtension> vendorExtensions = new ArrayList<>();
         vendorExtensions.add(new StringVendorExtension("x-order", Objects.toString(order)));
-        if (!StringUtils.isEmpty(author)) {
+        if (!StringUtil.isEmpty(author)) {
           vendorExtensions.add(new StringVendorExtension("x-author", author));
         }
         Tag tag = new Tag(tagName, description, vendorExtensions);
